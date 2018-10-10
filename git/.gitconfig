@@ -1,0 +1,11 @@
+[user]
+    name = {0}
+    email = {1}
+[alias]
+    s = status
+    a = add .
+    c = commit
+    r = reset
+    nuke = reset --hard HEAD
+    diffs = diff --staged
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>
