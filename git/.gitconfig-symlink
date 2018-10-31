@@ -6,3 +6,4 @@
     nuke = reset --hard HEAD
     diffs = diff --staged
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>'
+    pushup = push -u origin HEAD
