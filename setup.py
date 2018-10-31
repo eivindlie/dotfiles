@@ -3,6 +3,8 @@ home = os.path.expanduser("~")
 
 
 def setup_git():
+    if input('Set up gitconfig? (yes/no) ') not in ('yes', 'YES', 'y', 'Y'):
+        return
     name = input('Enter full name (for gitconfig): ')
     email = input('Enter email (for gitconfig): ')
 
