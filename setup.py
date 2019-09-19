@@ -1,6 +1,7 @@
 import os
+import platform
 home = os.path.expanduser("~")
-
+system = platform.system()
 
 def setup_git():
     if input('Set up gitconfig? (yes/no) ') not in ('yes', 'YES', 'y', 'Y'):
