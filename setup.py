@@ -14,10 +14,16 @@ def setup_git():
 
     gitconfig = gitconfig.format(name, email)
 
-    try:
-        os.rename(os.path.join(home, '.gitconfig'), os.path.join(home, '.gitconfig.bak'))
-    except WindowsError:
-        pass
+    if system == 'Windows':
+        try:
+            os.rename(os.path.join(home, '.gitconfig'), os.path.join(home, '.gitconfig.bak'))
+        except WindowsError:
+            pass
+    else:
+        try:
+            os.rename(os.path.join(home, '.gitconfig'), os.path.join(home, '.gitconfig.bak'))
+        except OSError:
+            pass
 
     with open(os.path.join(home, '.gitconfig'), 'w') as f:
         f.write(gitconfig)
