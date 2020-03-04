@@ -1,1 +1,5 @@
 alias ll='ls -l --color=auto'
+alias untar='tar -zxvf '
+alias ping='ping -c 5'
+alias cls='clear'
+alias c='clear'
