@@ -44,12 +44,17 @@ def setup_bashrc():
         print('You are running Windows - .bashrc cannot be setup')
         return
 
-    try:
-        os.rename(os.path.join(home, '.bashrc'), os.path.join(home, '.bashrc-extra'))
-    except OSError:
-        pass
+    with open(os.path.join(home, '.bashrc')) as f:
+        bashrc = f.read()
 
-    os.link('.bashrc', os.path.join(home, '.bashrc'))
+    bashrc = 'source ~/.bashrc-symlink\n' + bashrc
+
+    with open(os.path.join(home, '.bashrc'), 'w') as f:
+        f.write(bashrc)
+
+    os.link('.bashrc', os.path.join(home, '.bashrc-symlink'))
+
+    os.system('source ~/.bashrc')
 
 def main():
     setup_bashrc()
