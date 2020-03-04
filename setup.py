@@ -52,9 +52,12 @@ def setup_bashrc():
     with open(os.path.join(home, '.bashrc'), 'w') as f:
         f.write(bashrc)
 
-    os.link('.bashrc', os.path.join(home, '.bashrc-symlink'))
+    try:
+        os.rename(os.path.join(home, '.bashrc-symlink'), os.path.join(home, '.bashrc-symlink.bak'))
+    except OSError:
+        pass
 
-    os.system('source ~/.bashrc')
+    os.link('.bashrc', os.path.join(home, '.bashrc-symlink'))
 
 def main():
     setup_bashrc()
