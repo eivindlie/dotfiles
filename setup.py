@@ -52,6 +52,7 @@ def setup_bashrc():
     os.link('.bashrc', os.path.join(home, '.bashrc'))
 
 def main():
+    setup_bashrc()
     setup_git()
 
 
