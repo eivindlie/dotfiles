@@ -1,3 +1,6 @@
+from __future__ import print_function, with_statement
+from builtins import input
+
 import os
 import platform
 home = os.path.expanduser("~")
