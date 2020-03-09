@@ -35,7 +35,7 @@ def setup_git():
     with open(os.path.join(home, '.gitconfig'), 'w') as f:
         f.write(gitconfig)
 
-    os.link('git/.gitconfig-symlink', os.path.join(home, '.gitconfig-symlink'))
+    os.symlink('git/.gitconfig-symlink', os.path.join(home, '.gitconfig-symlink'))
 
 
 def setup_bashrc():
@@ -59,7 +59,7 @@ def setup_bashrc():
     except OSError:
         pass
 
-    os.link('.bashrc', os.path.join(home, '.bashrc-symlink'))
+    os.symlink('.bashrc', os.path.join(home, '.bashrc-symlink'))
 
 def main():
     setup_bashrc()
