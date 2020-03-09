@@ -1,4 +1,4 @@
-alias ll='ls -l --color=auto'
+alias ll='ls -al --color=auto'
 alias untar='tar -zxvf '
 alias ping='ping -c 5'
 alias cls='clear'
