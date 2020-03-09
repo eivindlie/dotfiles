@@ -35,7 +35,7 @@ def setup_git():
     with open(os.path.join(home, '.gitconfig'), 'w') as f:
         f.write(gitconfig)
 
-    os.symlink('git/.gitconfig-symlink', os.path.join(home, '.gitconfig-symlink'))
+    os.symlink(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'git/.gitconfig-symlink'), os.path.join(home, '.gitconfig-symlink'))
 
 
 def setup_bashrc():
@@ -45,9 +45,11 @@ def setup_bashrc():
     if system == 'Windows':
         print('You are running Windows - .bashrc cannot be setup')
         return
-
-    with open(os.path.join(home, '.bashrc')) as f:
-        bashrc = f.read()
+    try:
+        with open(os.path.join(home, '.bashrc')) as f:
+            bashrc = f.read()
+    except FileNotFoundError:
+        bashrc = ''
 
     bashrc = 'source ~/.bashrc-symlink\n' + bashrc
 
@@ -59,7 +61,7 @@ def setup_bashrc():
     except OSError:
         pass
 
-    os.symlink('.bashrc', os.path.join(home, '.bashrc-symlink'))
+    os.symlink(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.bashrc'), os.path.join(home, '.bashrc-symlink'))
 
 def main():
     setup_bashrc()
