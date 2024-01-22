@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ -z "$1" ]
+then
+  echo "No issue number supplied"
+  exit 1
+fi
+
+output = $(glab mr create -a eiand -i $1 --draft)
+glab issue update $1 -l "Status::In Progress" -a eiand
+
+read -ra arr <<< "$output"
+mr_id = ${arr[1]}
+glab mr checkout $mr_id

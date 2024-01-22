@@ -103,10 +103,23 @@ def setup_zshrc():
         os.path.join(home, '.zshrc-symlink'))
 
 
+def setup_glab_scripts():
+    if input('Add glab scripts to PATH? (yes/no) ') not in yes_answers:
+        return
+
+    if system == 'Windows':
+        print('You are running Windows - glab scripts cannot be setup')
+        return
+
+    with open(os.path.join(home, '.zshrc'), 'a') as f:
+        f.write(f'export PATH="$PATH:{os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gitlab')}"\n')
+
+
 def main():
     setup_bashrc()
     setup_zshrc()
     setup_git()
+    setup_glab_scripts()
 
 
 if __name__ == '__main__':
