@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ -z "$1" ]
+then
+  echo "No issue number supplied"
+  exit 1
+fi
+
+output=$(glab mr create -a eiand --related-issue $1 --fill --yes)
+glab issue update $1 -l "status::in progress" -a eiand
+
+mr_id=$(awk -F'!| ' '{print $1}' <<< "$output")
+
+# TODO Check when the MR is ready, and check it out
+# glab mr checkout $mr_id
