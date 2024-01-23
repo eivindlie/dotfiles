@@ -6,9 +6,30 @@ then
 fi
 
 output=$(glab mr create -a eiand --related-issue $1 --fill --yes)
+echo $output
 glab issue update $1 -l "status::in progress" -a eiand
 
 mr_id=$(awk -F'!| ' '{print $1}' <<< "$output")
 
-# TODO Check when the MR is ready, and check it out
-# glab mr checkout $mr_id
+
+max_attempts=10
+attempt_num=1
+open_branch_success=false
+printf "Attempting to open branch for MR $mr_id"
+while [ $open_branch_success = false ] && [ $attempt_num -le $max_attempts ]; do
+  glab mr checkout $mr_id >> /dev/null 2>&1
+
+  if [ $? -eq 0 ]; then
+    open_branch_success=true
+  else
+    sleep 1
+    printf "."
+    attempt_num=$(( attempt_num + 1 ))
+  fi
+done
+echo ''
+
+if [ $open_branch_success = false ]; then
+  echo "Failed to open branch for MR $mr_id"
+  exit 1
+fi
