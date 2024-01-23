@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 mr_id=$(glab mr view | awk '/number:(.*)/' | awk -F':' '{print $2}' | xargs)
 issue_id=$(glab mr view | awk '/Closes #(.*)/' | awk -F'#' '{print $2}' | xargs)
 url=$(glab mr view | awk '/url:(.*)/' | awk '{print $2}' | xargs)

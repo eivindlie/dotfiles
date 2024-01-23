@@ -1,12 +1,51 @@
 #!/bin/sh
-if [ -z "$1" ]
-then
-  echo "No issue number supplied"
-  exit 1
+while getopts t:i: option
+do 
+    case "${option}"
+        in
+        t)
+            type='new'
+            title=${OPTARG}
+            break
+            ;;
+        i)
+            type='existing'
+            issue_id=${OPTARG}
+            break
+            ;;
+    esac
+done
+
+if [[ $type != 'new' && $type != 'existing' ]]; then
+    echo 'Please specify either -t or -i'
+    exit 1
 fi
 
-glab mr create -a eiand --related-issue $1 --fill --yes
-glab issue update $1 -l "status::in progress" -a eiand
+if [ $type == 'new' ]
+then
+    echo "Creating new issue with title: $title"
+    # glab issue create --title 'Trekk ut query params i AnswerAccessibilityViewParam' --description '' --label 'team::kp,status::in progress' | cat
+    output = $(glab issue create --title '$title' --label 'team::kp' --description '')
 
+    # Example output:
+    # - Creating issue in feide/feide-kp
+    # https://gitlab.sikt.no/feide/feide-kp/-/issues/3796
+    echo "$output"
+fi
+echo $issue_id
+
+if [ $issue_id == '' ]
+then
+    echo 'No issue id specified'
+    exit 1
+fi
+
+echo 'Creating MR for issue'
+glab mr create -a eiand --related-issue $issue_id --fill --yes
+
+echo 'Updating issue status'
+glab issue update $issue_id -l "status::in progress" -a eiand
+
+echo 'Checking out MR branch'
 mr_id=$(glab mr view | awk '/number:(.*)/' | awk -F':' '{print $2}' | xargs)
 glab mr checkout $mr_id
