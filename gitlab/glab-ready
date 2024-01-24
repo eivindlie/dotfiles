@@ -4,7 +4,7 @@ issue_id=$(glab mr view | awk '/Closes #(.*)/' | awk -F'#' '{print $2}' | xargs)
 url=$(glab mr view | awk '/url:(.*)/' | awk '{print $2}' | xargs)
 glab mr update --ready
 glab issue update $issue_id -l "status::review"
-echo $url | pbcopy
-echo 'Copied MR URL to clipboard'
 echo ''
 echo $url
+echo $url | pbcopy
+echo 'Copied MR URL to clipboard'
