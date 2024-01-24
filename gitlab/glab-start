@@ -34,7 +34,7 @@ then
     issue_id=$(echo "$output" | awk '/issues\/(.*)/' | awk -F'/' '{print $2}' | xargs)
     echo "Parsed issue id $issue_id"
 fi
-echo $issue_id
+echo "Ready to initiate work on issue $issue_id"
 
 if [ $issue_id == '' ]
 then
@@ -53,6 +53,12 @@ echo "Parsed MR id $mr_id"
 
 echo 'Updating issue status'
 glab issue update $issue_id -l "status::in progress" -a eiand
+
+if [ $mr_id == '' ]
+then
+    echo 'No MR id – cancelling checkout'
+    exit 1
+fi
 
 echo 'Checking out MR branch'
 glab mr checkout $mr_id
