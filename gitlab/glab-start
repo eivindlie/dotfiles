@@ -36,7 +36,7 @@ then
 fi
 echo "Ready to initiate work on issue $issue_id"
 
-if [ -n $issue_id ]
+if [[ -z $issue_id ]]
 then
     echo 'No issue id specified'
     exit 1
@@ -54,7 +54,7 @@ echo "Parsed MR id $mr_id"
 echo 'Updating issue status'
 glab issue update $issue_id -l "status::in progress" -a eiand
 
-if [ -n $mr_id ]
+if [[ -z $mr_id ]]
 then
     echo 'No MR id – cancelling checkout'
     exit 1
