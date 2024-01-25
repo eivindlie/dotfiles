@@ -25,7 +25,7 @@ if [ $type == 'new' ]
 then
     echo "Creating new issue with title: $title"
     # glab issue create --title 'Trekk ut query params i AnswerAccessibilityViewParam' --description '' --label 'team::kp,status::in progress' | cat
-    output = $(glab issue create --title "$title" --label "team::kp,status::ready" --description "")
+    output=$(glab issue create --title "$title" --label "team::kp,status::ready" --description "")
 
     # Example output:
     # - Creating issue in feide/feide-kp
@@ -43,7 +43,7 @@ then
 fi
 
 echo 'Creating MR for issue'
-mr_output = $(glab mr create -a eiand --related-issue $issue_id --fill --yes)
+mr_output=$(glab mr create -a eiand --related-issue $issue_id --fill --yes)
 # Example output:
 # Creating draft merge request for 3798-trekk-ut-query-params-i-activationsapiviewparam-1 into master in feide/feide-kp
 # https://gitlab.sikt.no/feide/feide-kp/-/merge_requests/3282
