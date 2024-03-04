@@ -24,12 +24,8 @@ fi
 if [ $type == 'new' ]
 then
     echo "Creating new issue with title: $title"
-    # glab issue create --title 'Trekk ut query params i AnswerAccessibilityViewParam' --description '' --label 'team::kp,status::in progress' | cat
     output=$(glab issue create --title "$title" --label "team::kp,status::ready" --description "")
 
-    # Example output:
-    # - Creating issue in feide/feide-kp
-    # https://gitlab.sikt.no/feide/feide-kp/-/issues/3796
     echo "$output"
     issue_id=$(echo "$output" | awk '/issues\/(.*)/' | awk -F'/' '{print $NF}' | xargs)
     echo "Parsed issue id $issue_id"
@@ -44,9 +40,6 @@ fi
 
 echo 'Creating MR for issue'
 mr_output=$(glab mr create -a eiand --related-issue $issue_id --fill --yes)
-# Example output:
-# Creating draft merge request for 3798-trekk-ut-query-params-i-activationsapiviewparam-1 into master in feide/feide-kp
-# https://gitlab.sikt.no/feide/feide-kp/-/merge_requests/3282
 echo "$mr_output"
 mr_id=$(echo "$mr_output" | awk '/merge_requests\/(.*)/' | awk -F'/' '{print $NF}' | xargs)
 echo "Parsed MR id $mr_id"
