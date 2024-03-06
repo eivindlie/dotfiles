@@ -39,7 +39,7 @@ then
 fi
 
 echo 'Creating MR for issue'
-mr_output=$(glab mr create -a eiand --related-issue $issue_id --fill --yes)
+mr_output=$(glab mr create -a eiand --related-issue $issue_id --fill --yes --remove-source-branch)
 echo "$mr_output"
 mr_id=$(echo "$mr_output" | awk '/merge_requests\/(.*)/' | awk -F'/' '{print $NF}' | xargs)
 echo "Parsed MR id $mr_id"
