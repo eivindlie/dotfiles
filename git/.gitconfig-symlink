@@ -15,3 +15,4 @@
     gud = commit --amend --no-edit
     pp = !git pull && git push
     stashed = stash show -p
+    master = !git switch master && git pull
