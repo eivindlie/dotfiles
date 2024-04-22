@@ -24,7 +24,7 @@ fi
 if [ $type == 'new' ]
 then
     echo "Creating new issue with title: $title"
-    output=$(glab issue create --title "$title" --label "team::kp,status::ready" --description "")
+    output=$(glab issue create --title "$title" --label "team::tillit,status::ready" --description "")
 
     echo "$output"
     issue_id=$(echo "$output" | awk '/issues\/(.*)/' | awk -F'/' '{print $NF}' | xargs)
