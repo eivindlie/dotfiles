@@ -17,5 +17,6 @@
     gud = commit --amend --no-edit
     pp = !git pull && git push
     stashed = stash show -p
-    master = !git switch master && git pull
+    main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+    master = !git switch $(git main-branch) && git pull
     m = master
