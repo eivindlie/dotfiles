@@ -14,3 +14,13 @@ alias django='pipenv run python manage.py'
 alias kpdjango='dc exec app python manage.py'
 alias kpkube='kubectl -n feide-feide-kp'
 alias ntkkube='kubectl -n feide-nasjonal-tjenestekatalog'
+
+function r() {
+    # Interactive repo picker.
+    cd "$(find "$REPOS" -type d -maxdepth 1 | fzf)" || exit
+}
+
+function c() {
+    # Interactive repo picker, opens VSCode.
+    code "$(find "$REPOS" -type d -maxdepth 1 | fzf)" || exit
+}
