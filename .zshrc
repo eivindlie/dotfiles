@@ -17,10 +17,10 @@ alias ntkkube='kubectl -n feide-nasjonal-tjenestekatalog'
 
 function r() {
     # Interactive repo picker.
-    cd "$(find "$REPOS" -type d -maxdepth 1 | fzf)" || exit
+    cd "$(find "${REPOS[@]}" -type d -maxdepth 1 | fzf)" || exit
 }
 
-function c() {
+function cc() {
     # Interactive repo picker, opens VSCode.
-    code "$(find "$REPOS" -type d -maxdepth 1 | fzf)" || exit
+    code "$(find ${REPOS[@]} -type d -maxdepth 1 | fzf)" || exit
 }
