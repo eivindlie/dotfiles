@@ -14,7 +14,10 @@ alias django='pipenv run python manage.py'
 alias kpdjango='dc exec app python manage.py'
 alias kpkube='kubectl -n feide-feide-kp'
 alias ntkkube='kubectl -n feide-nasjonal-tjenestekatalog'
-alias aws-sso-lmk='aws sso login --profile LimitedAdmin-429454619780'
+
+function aws-profile-env(){
+    eval "$(aws configure export-credentials --profile $1 --format env)"
+}
 
 function r() {
     # Interactive repo picker.
