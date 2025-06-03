@@ -42,3 +42,34 @@ function code() {
     fi
     command code $1
 }
+
+function lmk-isbn() {
+    if [[ -z $1 ]]; then
+        echo "Usage: lmk-isbn <isbn>"
+        return 1
+    fi
+
+    local should_open=false
+    if [[ $1 == "--open" ]]; then
+        should_open=true
+        shift  # Remove the --open flag from the arguments
+    fi
+
+    for isbn in "$@"; do
+        # Ignore if argument starts with a dash
+        if [[ $isbn == -* ]]; then
+            continue
+        fi
+        
+        if [[ $isbn =~ ^[0-9]{10}$ || $isbn =~ ^[0-9]{13}$ ]]; then
+            local base64_isbn=$(echo -n "urn:isbn:$isbn" | base64)
+            local url="https://laeremiddelkatalogen.sikt.no/moduler/$base64_isbn"
+            echo "$url"
+            if $should_open; then
+                open "$url" &>/dev/null
+            fi
+        else
+            echo "Invalid ISBN: $isbn"
+        fi
+    done
+}
