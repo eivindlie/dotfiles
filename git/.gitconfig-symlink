@@ -13,6 +13,7 @@
     nuke = reset --hard HEAD
     diffs = diff --staged
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>'
+    lgo = "!git lg --perl-regexp --author=\"^((?!$(git config user.name)).*)$\""
     pushup = push -u origin HEAD
     gud = commit --amend --no-edit
     pp = !git pull && git push
